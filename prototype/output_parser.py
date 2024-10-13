@@ -136,9 +136,9 @@ class LLMCompilerPlanParser(BaseTransformOutputParser[dict], extra="allow"):
 
     def stream(
         self,
-        input: str | BaseMessage,
-        config: RunnableConfig | None = None,
-        **kwargs: Any | None,
+        input: Union[str, BaseMessage],
+        config: Union[RunnableConfig, None] = None,
+        **kwargs: Union[Any, None],
     ) -> Iterator[Task]:
         yield from self.transform([input], config, **kwargs)
 
