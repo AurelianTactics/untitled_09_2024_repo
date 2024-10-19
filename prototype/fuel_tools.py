@@ -1,63 +1,12 @@
 '''
 
 working:
-
-
-    do a file for the fuel cost
-
-    TEST maintenance part
+    rewrite for fuel
 
 
 to do:
     not sure how and what I am feeding into this
     not really sure how parts of this work
-
-Misc notes:
-    want tools or LLM calls for
-    maintenance cost
-    fuel cost
-
-    both can be answered by LLMs, want to make it a "tool" call so it  uses LLM compiler
-
-    output should be by year expense
-
-    feed in the relevant info
-        maintenance
-            miles per year if given
-            vehicle class if given
-            car if given
-            starting milage of car if given
-            location if given
-
-        fuel cost
-            location if given
-            gas/hybrid/electric
-            price per gallon if given
-            kw/h if given
-
-    returns
-        JSON:
-        {
-            "maintenance":
-                {
-                    "year_1": 1234
-                },
-                ...
-                {
-                    "year_x": 1234
-                }
-        }
-
-        {
-            "fuel_cost":
-                {
-                    "year_1": 1234
-                },
-                ...
-                {
-                    "year_x": 1234
-                }
-        }
         
 backlog
     break out maintenance and fuel to seperate files
@@ -77,9 +26,10 @@ from langchain_core.tools import StructuredTool
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
-_MAINTENANCE_DESCRIPTION = (
-    "get_annual_maintenance_cost(problem: str, context: Optional[list[str]]) -> json:\n"
-    "Take the user question and output the annual cost of vehicle maintenance. Output it in a JSON format.\n"
+_FUEL_COST_DESCRIPTION = (
+    "get_annual_fuel_cost(problem: str, context: Optional[list[str]]) -> json:\n"
+    "Take the user question and output the annual fuel of vehicle maintenance.\n"
+    "Output it in a JSON format where each annual cost is its own key value in the JSON..\n"
     # add examples?
 )
 
@@ -87,7 +37,7 @@ _SYSTEM_PROMPT = """
 Take the user question and output the annual cost of vehicle maintenance. Output it in a JSON format:
 
 {
-    "maintenance":
+    "fuel_cost":
         {
             "year_1": 1000.00
         },
@@ -106,10 +56,7 @@ Take the user question and output the annual cost of vehicle maintenance. Output
 }
 
 -If number of years is not given assume 5.
--If new or used car designation is not given assume new.
--If new assume the mileage on the car is 0.
--If used and the mileage on the car not give assume the care has 50,000 miles.
--If the number of miles driven per year is not given assume 10,000 miles per year.
+-If the number of miles driven per year is not given assume 10,000 miles driven per year.
 -If the location is not given use the overall United States of America average.
 -If the vehicle class is not given use the overall United States of America average.
 -If the vehicle class is given use that to give a better estimate.
@@ -121,7 +68,7 @@ Examples:
 
 _ADDITIONAL_CONTEXT_PROMPT = """"""
 
-def get_maintenance_tool(llm: ChatOpenAI):
+def get_fuel_tool(llm: ChatOpenAI):
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", _SYSTEM_PROMPT),
@@ -131,7 +78,7 @@ def get_maintenance_tool(llm: ChatOpenAI):
     )
     extractor = prompt | llm.with_structured_output()
 
-    def calculate_maintenance(
+    def calculate_fuel_cost(
         problem: str,
         context: Optional[List[str]] = None,
         config: Optional[RunnableConfig] = None,
@@ -149,7 +96,7 @@ def get_maintenance_tool(llm: ChatOpenAI):
         return extractor_response
 
     return StructuredTool.from_function(
-        name="maintenance",
-        func=calculate_maintenance,
-        description=_MAINTENANCE_DESCRIPTION,
+        name="fuel",
+        func=calculate_fuel_cost,
+        description=_FUEL_COST_DESCRIPTION,
     )
