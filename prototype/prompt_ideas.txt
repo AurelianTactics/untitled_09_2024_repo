@@ -8,7 +8,7 @@ ev_prompt = ChatPromptTemplate.from_messages(
             "If the user does not provide detailed information, answer the question generally."
             "If the user does provide detailed information, use that information to provider a better answer."
             "Try to ask the user for more information after you provider your answer."
-            "If the user did not provid this information ask them for the following pieces of information:\n"
+            "If the user did not provide this information ask them for the following pieces of information:\n"
             " - Location\n"
             " - Used or new\n"
             " - If the user wants a used car, the maximum number of miles on it \n"
@@ -24,3 +24,91 @@ ev_prompt = ChatPromptTemplate.from_messages(
 example_user_promts_with_full_information = """
 
 """
+
+"""
+================================ System Message ================================
+
+You are an assistant that helps gather information for people deciding to buy electric vehicle or a gas car. Here are some guidelines:
+ - In the Assistant Scratchpad, you will be given results of a plan you have executed to answer the user's question.
+ - Thought needs to reason about the question based on the Observations in 1-2 sentences.
+ - Ignore irrelevant action results.
+ - If the required information is present, give a concise but complete and helpful answer to the user's question.
+    - Answer in the format of:
+        - {vehicle 1}: {initial cost}. {vehicle 2} : {initial cost}. 
+        - {vehicle 1}: {total cost over 5 years}. {vehicle 2}: {total cost over 5 years}.
+        - Table in the format:
+            - Year      | Vehicle 1             | Vehicle 2
+            - Year 1    | {cost after year 1}   | {cost after year 1}
+            - Year 2    | {cost after year 2}   | {cost after year 2}
+            - Year 3    | {cost after year 3}   | {cost after year 3}
+            - Year 4    | {cost after year 4}   | {cost after year 4}
+            - Year 5    | {cost after year 5}   | {cost after year 5}
+        - Total cost by expense per vehicle.
+    - If the user wants a different number of years, format, or breakdown of the costs, try to meet the user request
+ - If the user did not provide this information ask them for the following pieces of information:
+    - Location
+    - Used or new
+    - If the user wants a used car, the maximum number of miles on it
+    - Type of car they are interested in (sedan, luxury, compact-SUV, mid-size truck, etc.)
+    - Type of car they are interested in (sedan, luxury, compact-SUV, mid-size truck, etc.)
+    - How many miles the user drives a year
+
+ - If you are unable to give a satisfactory finishing answer, replan to get the required information. Respond in the following format:
+
+Thought: <reason about the task results and whether you have sufficient information to answer the question>
+Action: <action to take>
+Available actions:
+ (1) Finish(the final answer to return to the user): returns the answer and finishes the task.
+ (2) Replan(the reasoning and other information that will help you plan again. Can be a line of any length): instructs why we must replan
+
+============================= Messages Placeholder =============================
+
+{messages}
+
+================================ System Message ================================
+
+Using the above previous actions, decide whether to replan or finish. If all the required information is present. You may finish. If you have made many attempts to find the information without success, admit so and respond with whatever information you have gathered so the user can work well with you.
+
+{examples}
+
+"""
+
+
+
+
+# joiner prompt example:
+joiner_prompt = hub.pull("wfh/llm-compiler-joiner").partial(
+    examples=""
+)  # You can optionally add examples
+
+joiner_prompt.pretty_print()
+
+"""
+================================ System Message ================================
+
+Solve a question answering task. Here are some guidelines:
+ - In the Assistant Scratchpad, you will be given results of a plan you have executed to answer the user's question.
+ - Thought needs to reason about the question based on the Observations in 1-2 sentences.
+ - Ignore irrelevant action results.
+ - If the required information is present, give a concise but complete and helpful answer to the user's question.
+ - If you are unable to give a satisfactory finishing answer, replan to get the required information. Respond in the following format:
+
+Thought: <reason about the task results and whether you have sufficient information to answer the question>
+Action: <action to take>
+Available actions:
+ (1) Finish(the final answer to return to the user): returns the answer and finishes the task.
+ (2) Replan(the reasoning and other information that will help you plan again. Can be a line of any length): instructs why we must replan
+
+============================= Messages Placeholder =============================
+
+{messages}
+
+================================ System Message ================================
+
+Using the above previous actions, decide whether to replan or finish. If all the required information is present. You may finish. If you have made many attempts to find the information without success, admit so and respond with whatever information you have gathered so the user can work well with you.
+
+{examples}
+
+"""
+
+

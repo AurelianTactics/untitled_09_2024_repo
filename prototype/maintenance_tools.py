@@ -3,8 +3,6 @@
 working:
 
 
-    do a file for the fuel cost
-
     TEST maintenance part
 
 
@@ -12,52 +10,6 @@ to do:
     not sure how and what I am feeding into this
     not really sure how parts of this work
 
-Misc notes:
-    want tools or LLM calls for
-    maintenance cost
-    fuel cost
-
-    both can be answered by LLMs, want to make it a "tool" call so it  uses LLM compiler
-
-    output should be by year expense
-
-    feed in the relevant info
-        maintenance
-            miles per year if given
-            vehicle class if given
-            car if given
-            starting milage of car if given
-            location if given
-
-        fuel cost
-            location if given
-            gas/hybrid/electric
-            price per gallon if given
-            kw/h if given
-
-    returns
-        JSON:
-        {
-            "maintenance":
-                {
-                    "year_1": 1234
-                },
-                ...
-                {
-                    "year_x": 1234
-                }
-        }
-
-        {
-            "fuel_cost":
-                {
-                    "year_1": 1234
-                },
-                ...
-                {
-                    "year_x": 1234
-                }
-        }
         
 backlog
     break out maintenance and fuel to seperate files

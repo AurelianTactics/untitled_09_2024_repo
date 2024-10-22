@@ -28,8 +28,8 @@ from pydantic import BaseModel, Field
 
 _FUEL_COST_DESCRIPTION = (
     "get_annual_fuel_cost(problem: str, context: Optional[list[str]]) -> json:\n"
-    "Take the user question and output the annual fuel of vehicle maintenance.\n"
-    "Output it in a JSON format where each annual cost is its own key value in the JSON..\n"
+    "Take the user question and output the annual cost of fuel for the vehicle.\n"
+    "Output it in a JSON format where each annual cost is its own key value in the JSON.\n"
     # add examples?
 )
 
