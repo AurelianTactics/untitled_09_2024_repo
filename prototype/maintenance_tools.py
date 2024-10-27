@@ -68,6 +68,10 @@ Take the user question and output the annual cost of vehicle maintenance. Output
 -If the make and model of the care is given, use that to give a better estimate.
 
 Examples:
+- Question: What is the annual maintenance cost for a new 2024 Hyundai Ioniq 5 driven 5000 miles a year in Los Angeles, CA?
+- Answer: {"maintenance": {"year_1": 200, "year_2": 300, "year_3": 400, "year_4": 500, "year_5": 600}}
+- Question: What is the annual maintenance cost for a used 2019 toyota corolla with 80,000 miles and 5000 miles a year in New Jersey?
+- Answer: {"maintenance": {"year_1": 591, "year_2": 611, "year_3": 637, "year_4": 676, "year_5": 736}}
 
 """
 
