@@ -46,20 +46,33 @@ For each vehicle, get the following fields:
     - mileage_minimum: the minimum mileage
     - mileage_maximum: the maximum mileage
     - miles_driven_per_year: user miles driven per year
+    - annual_maintenance_cost: estimated annual maintenance cost
+    - annual_insurance_cost: estimated annual insurance cost
     
 
-Take the question and concisely answer the question. Output it in a JSON format:
-
-Your answer will not go to the user. Your answer will be used as one part of a larger question and workflow.
-Depending on the question may be give additional context.
-Depending on the question may be asked to output in a specific way.
 
 Examples:
-- Question: What is the price of a new Tesla Model Y?
-- Answer: {"type": "new", "make": "Tesla", "model": "Model Y"  "price": 42290}
+- Question: I want to know if the cost of a owning new Tesla Model Y versus a used Ford F-150 with 50,000 miles over the next five years.
 
-- Question: What is the price of a 2020 Ford F-150 with 50,000 miles?
-- Answer: {"type": "used", "make": "Ford", "model": "F-150"  "price": 30,491, "mileage_minimum": 40000, "mileage_maximum": 60000}
+- Answer: [
+    {"type": "new", 
+    "make": "Tesla", 
+    "model": "Model Y"  
+    "price": null, 
+    "mileage_minimum": null, 
+    "mileage_maximum": null, 
+    "miles_driven_per_year": null, 
+    "annual_maintenance_cost": null, 
+    "annual_insurance_cost": null},
+    {"type": "used", 
+    "make": "Ford", 
+    "model": "F-150"  
+    "price": null, 
+    "mileage_minimum": 40000, 
+    "mileage_maximum": 60000,
+    "miles_driven_per_year": null, 
+    "annual_maintenance_cost": null, 
+    "annual_insurance_cost": null}]
 
 """
 
