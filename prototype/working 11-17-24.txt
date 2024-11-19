@@ -1,0 +1,17 @@
+maybe rethink this to focus on a more minimal version first then expand where necessary
+        see 11/13 email throughts from the batch
+	
+reread the 11/13 email thoughts
+
+DONE try a base version with cop;ilot
+	still incredibly terrible
+
+focus more on what the base version can do
+	better prompting on base
+	eval cases for langsmith
+	langsmith
+	simple UI
+
+make a minimal version
+	eval where it goes wrong
+	improve from there
